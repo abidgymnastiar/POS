@@ -10,4 +10,16 @@ class UserModel extends Model
     use HasFactory;
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
+
+    protected $fillable = [
+        'level_id',
+        'username',
+        'name',
+        'password',
+    ];
+
+    public function level()
+    {
+        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
 }
