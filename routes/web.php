@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\POSController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UserController;
@@ -20,7 +21,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', function () {
+    return view('welcom');
+});
+Route::get('/form', function () {
+    return view('form.form');
+});
+Route::get('form/user', function () {
+    return view('form.user');
+});
+Route::get('form/level', function () {
+    return view('form.level');
+});
+Route::get('/general', function () {
+    return view('form.general');
+});
+Route::get('/welcome', [HomeController::class, 'index']);
 
 Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
@@ -53,3 +69,6 @@ Route::post('/kategori', [KategoriController::class, 'store']);
 Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('editKategori');
 Route::put('/kategori/update{id}', [KategoriController::class, 'update'])->name('updateKategori');
 Route::get('/kategori/hapus/{id}', [KategoriController::class, 'delete'])->name('delete');
+
+
+Route::resource('user', POSController::class);
