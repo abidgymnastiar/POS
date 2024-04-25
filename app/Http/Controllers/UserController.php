@@ -28,7 +28,7 @@ class UserController extends Controller
     public function list(Request $request)
     {
         $users = UserModel::select('user_id', 'username', 'name', 'level_id')
-            ->with('level');
+            ->with('level')->orderBy('updated_at', 'desc');
 
         // Filter data berdasarkan level_id
         if ($request->level_id) {
