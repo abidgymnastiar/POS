@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class UserModel extends Authenticatable implements JWTSubject
 {
@@ -28,6 +29,7 @@ class UserModel extends Authenticatable implements JWTSubject
         'username',
         'name',
         'password',
+        'image'
     ];
 
     public function level()
@@ -38,5 +40,10 @@ class UserModel extends Authenticatable implements JWTSubject
     public function penjualan()
     {
         return $this->hasMany(PenjualanModel::class, 'user_id', 'user_id');
+    }
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(get: fn ($image) => url('storage/posts/' . $image));
     }
 }

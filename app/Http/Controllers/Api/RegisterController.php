@@ -16,7 +16,8 @@ class RegisterController extends Controller
             'username' => 'required',
             'name' => 'required',
             'password' => 'required',
-            'level_id' => 'required'
+            'level_id' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         // if validator fails 
@@ -29,7 +30,8 @@ class RegisterController extends Controller
             'username' => $request->username,
             'name' => $request->name,
             'password' => bcrypt($request->password),
-            'level_id' => $request->level_id
+            'level_id' => $request->level_id,
+            'image' => $request->image->hashName()
         ]);
 
         // return respon json user is create 
